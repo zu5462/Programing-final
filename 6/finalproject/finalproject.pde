@@ -57,9 +57,9 @@ void draw(){
    dessert.show(img);
    dessert.move();
    dessert1.show(img);
-  dessert1.move(); 
-  dessert2.show(img);
-  dessert2.move(); 
+   dessert1.move(); 
+   dessert2.show(img);
+   dessert2.move(); 
 
    displaylife();
    drawScore();
