@@ -6,7 +6,6 @@
                   data/boy.png,
                   data/boycry.png,
                   data/ccake.png,
-                  data/CHOCALATE CAKE.png,
                   data/donet.png,
                   data/END.png,
                   data/example 2.jpg,
@@ -15,12 +14,11 @@
                   data/ggirlopen.png,
                   data/heart.png,
                   data/house.png,
-                  pink candy.png,
+                  data/pink candy.png,
                   data/rgirl.png,
                   data/rgirlcry.png,
                   data/rgirlopen.png,
                   data/scake.png,
                   data/START.png,
-                  data/STARWBERRT CAKE.png,
                   data/yellow candy.png";
                   */

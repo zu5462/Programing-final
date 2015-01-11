@@ -63,21 +63,8 @@ void draw(){
 
    displaylife();
    drawScore();
-   println(point);
-   // boy hitTest
-        // if (dessertX+50>childrenX && childrenX > dessertX && dessertY <  childrenY && childrenY < dessertY + 50){
-        //  image(img.boycry, childrenX, childrenY);
-        //  life--;
-        // }
-   
    break;
    
-   /*case GAME_FAIL:
-   img.boycry();
-    life--;
-    delay(300);
-    break;
-   */
    case GAME_LOSE :
    img.endshow();
    finalScore();
