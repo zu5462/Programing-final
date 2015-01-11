@@ -7,7 +7,7 @@ class background{
   int Fnum;
   int Snum;
   int Bnum=0;
-  float nX;
+  float nextX;
   
 void load(){
   back=loadImage("data/background.jpg");
@@ -34,7 +34,7 @@ void display(){
   noStroke();
   image(back,-size*Fnum,0);
   image(back,-size*Snum,0);
-  nX=iX+636;
+  nextX=iX+636;
 }
 
 background(){

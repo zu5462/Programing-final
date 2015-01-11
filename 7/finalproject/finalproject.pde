@@ -19,8 +19,8 @@ PImage silver;
 PImage bronze;
 PImage golden;
 
-int countSpiderFrame;    //Bullet Time Counter
-int SpiderNum;           //Bullet Order Number
+int countSpiderFrame;    
+int SpiderNum;           
 int KidNum;
 int life=10;
 int stonenum=0;
