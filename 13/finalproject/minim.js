@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Minim-emulation code by Daniel Hodgin
  */
 
@@ -24,15 +24,15 @@ function AudioPlayer(str) {
     }, false);
     audio.preload = 'auto';
     audio.autobuffer = true;
-    if (canPlayOgg()) {
+    /*if (canPlayOgg()) {
       audio.src = str.split(".")[0] + ".ogg";
-    } else if (canPlayMp3()) {
+    } else*/ if (canPlayMp3()) {
       audio.src = str;
     }
     loaded = true;
   }
   this.play = function () {
-    if (!loaded || audio.readyState==0) {
+    if (!loaded) {
       var local = this;
       setTimeout(function() { local.play(); }, 50);
       return;
@@ -40,7 +40,7 @@ function AudioPlayer(str) {
     audio.play();
   };
   this.loop = function () {
-    if (!loaded || audio.readyState==0) {
+    if (!loaded) {
       var local = this;
       setTimeout(function() { local.loop(); }, 50);
       return;
@@ -56,11 +56,36 @@ function AudioPlayer(str) {
     audio.pause();
   };
   this.rewind = function () {
-    if (!loaded || audio.readyState==0) {
+    if (!loaded) {
       return;
     }
     // rewind the sound to start
-    audio.currentTime = 0;
+    if(audio.currentTime) {
+      audio.currentTime = 0;
+    }
+  };
+  this.position = function() {
+    if (!loaded) {
+      return -1;
+    }
+    if(audio.currentTime) {
+      return audio.currentTime * 1000;
+    }
+    return -1;
+  };
+  this.cue = function(position) {
+    if (!loaded) {
+      return;
+    }
+    if(audio.currentTime) {
+      audio.currentTime = position / 1000;
+    }
+  };
+  this.mute = function() {
+    audio.volume = 0.0;
+  };
+  this.unmute = function() {
+    audio.volume = 1.0;
   };
 }
 
