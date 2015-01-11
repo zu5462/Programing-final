@@ -58,16 +58,16 @@ void setup(){
   startBGM     = minim.loadFile  ("data/music/startBG.wav");
   playBGM      = minim.loadFile  ("data/music/playBG.mp3");
   winS         = minim.loadFile("data/music/win.wav");;
-  loseS        = minim.loadSample("data/music/fail.wav");;
-  introClickS  = minim.loadSample("data/music/introClick.mp3");
-  startHintS   = minim.loadSample("data/music/startHint.wav");
-  countHintS   = minim.loadSample("data/music/countHint.wav");
-  playClickS   = minim.loadSample("data/music/playClick.wav");
-  matchS       = minim.loadSample("data/music/match.wav");
-  wrongS       = minim.loadSample("data/music/wrong.wav");
-  specialGoodS = minim.loadSample("data/music/specialGood.wav"); 
-  specialBadS  = minim.loadSample("data/music/specialBad.wav");
-  levelUpS     = minim.loadSample("data/music/levelup.wav");
+  loseS        = minim.loadFile("data/music/fail.wav");;
+  introClickS  = minim.loadFile("data/music/introClick.mp3");
+  startHintS   = minim.loadFile("data/music/startHint.wav");
+  countHintS   = minim.loadFile("data/music/countHint.wav");
+  playClickS   = minim.loadFile("data/music/playClick.wav");
+  matchS       = minim.loadFile("data/music/match.wav");
+  wrongS       = minim.loadFile("data/music/wrong.wav");
+  specialGoodS = minim.loadFile("data/music/specialGood.wav"); 
+  specialBadS  = minim.loadFile("data/music/specialBad.wav");
+  levelUpS     = minim.loadFile("data/music/levelup.wav");
   
   playBG     = loadImage("data/background.png");
   startBG    = loadImage("data/startBG.png");
