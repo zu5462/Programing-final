@@ -1,5 +1,5 @@
 /* @pjs pauseOnBlur="true"; 
-        preload= "data/alarming.mp3,
+        preload= "data/alarmring.mp3,
                   data/music.mp3,
                   data/background.png,
                   data/boy mouthopen.png,
