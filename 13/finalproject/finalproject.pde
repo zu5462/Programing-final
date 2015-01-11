@@ -57,7 +57,7 @@ void setup(){
   
   startBGM     = minim.loadFile  ("data/music/startBG.wav");
   playBGM      = minim.loadFile  ("data/music/playBG.mp3");
-  winS         = minim.loadSample("data/music/win.wav");;
+  winS         = minim.loadFile("data/music/win.wav");;
   loseS        = minim.loadSample("data/music/fail.wav");;
   introClickS  = minim.loadSample("data/music/introClick.mp3");
   startHintS   = minim.loadSample("data/music/startHint.wav");
