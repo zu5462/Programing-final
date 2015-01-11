@@ -16,11 +16,11 @@ class Card{
   
   void display(float x, float y){
     if(cardState == CARD_HIDE){
-      image(back     , x+2, y+2, slotSize-2, slotSize-2);
+      image(back     , x, y, slotSize-2, slotSize-2);
     }else if(cardState == CARD_MATCH){
-      image(this.imgM, x+2, y+2, slotSize-2, slotSize-2);
+      image(this.imgM, x, y, slotSize-2, slotSize-2);
     }else{
-      image(this.img , x+2, y+2, slotSize-2, slotSize-2);
+      image(this.img , x, y, slotSize-2, slotSize-2);
     }
   }
  

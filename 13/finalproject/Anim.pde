@@ -52,6 +52,7 @@ class Anim {
             playintro  = true;
             mouseClick = false;
             startBGM.pause();
+            playBGM.rewind();
             playBGM.loop();
           }
         }

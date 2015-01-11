@@ -2,13 +2,13 @@ import ddf.minim.*;
 
 Minim minim;
 AudioPlayer startBGM,playBGM;
-AudioSample winS,loseS;
-AudioSample introClickS,playClickS,countHintS,startHintS;
-AudioSample matchS,wrongS,specialGoodS,specialBadS,levelUpS;
+AudioPlayer winS,loseS;
+AudioPlayer introClickS,playClickS,countHintS,startHintS;
+AudioPlayer matchS,wrongS,specialGoodS,specialBadS,levelUpS;
 
-Card [][]playCard;
-Card [] matchCard;
-Snow [] snows;
+Card[][] playCard;
+Card[] matchCard;
+Snow[] snows;
 Anim introAnim,winAnim,loseAnim,creditAnim;
 
 PImage playBG,startBG,storyBG,ruleBG,winBG,loseBG,creditBG;
@@ -55,19 +55,19 @@ void setup(){
   tranY = 30;
   countDown = 20000;
   
-  startBGM     = minim.loadFile  ("data/music/startBG.wav");
-  playBGM      = minim.loadFile  ("data/music/playBG.mp3");
-  winS         = minim.loadFile("data/music/win.wav");;
-  loseS        = minim.loadFile("data/music/fail.wav");;
+  startBGM     = minim.loadFile("data/music/startBG.mp3");
+  playBGM      = minim.loadFile("data/music/playBG.mp3");
+  winS         = minim.loadFile("data/music/win.mp3");;
+  loseS        = minim.loadFile("data/music/fail.mp3");;
   introClickS  = minim.loadFile("data/music/introClick.mp3");
-  startHintS   = minim.loadFile("data/music/startHint.wav");
-  countHintS   = minim.loadFile("data/music/countHint.wav");
-  playClickS   = minim.loadFile("data/music/playClick.wav");
-  matchS       = minim.loadFile("data/music/match.wav");
-  wrongS       = minim.loadFile("data/music/wrong.wav");
-  specialGoodS = minim.loadFile("data/music/specialGood.wav"); 
-  specialBadS  = minim.loadFile("data/music/specialBad.wav");
-  levelUpS     = minim.loadFile("data/music/levelup.wav");
+  startHintS   = minim.loadFile("data/music/startHint.mp3");
+  countHintS   = minim.loadFile("data/music/countHint.mp3");
+  playClickS   = minim.loadFile("data/music/playClick.mp3");
+  matchS       = minim.loadFile("data/music/match.mp3");
+  wrongS       = minim.loadFile("data/music/wrong.mp3");
+  specialGoodS = minim.loadFile("data/music/specialGood.mp3"); 
+  specialBadS  = minim.loadFile("data/music/specialBad.mp3");
+  levelUpS     = minim.loadFile("data/music/levelup.mp3");
   
   playBG     = loadImage("data/background.png");
   startBG    = loadImage("data/startBG.png");
@@ -186,21 +186,21 @@ void drawSlot(){
   strokeWeight(2);
   stroke(91,55,21);
   for(int i = 0;i < slotW+1;i++){
-    line(i*slotSize+ix+tranX,iy+tranY,i*slotSize+ix+tranX,height-iy+tranY);
+    line(i*slotSize+ix+tranX,iy+tranY,i*slotSize+ix+tranX-1,height-iy+tranY);
   }
   for(int i = 0;i < slotH+1;i++){
-    line(ix+tranX,iy+i*slotSize+tranY ,width-ix+tranX,iy+i*slotSize+tranY);
+    line(ix+tranX,iy+i*slotSize+tranY ,width-ix+tranX,iy+i*slotSize+tranY-1);
   }
 }
 
 void showCard(){
   for(int i = 0;i < slotW;i++){
     for(int j = 0;j < slotH;j++){
-      int x = ix+i*slotSize+slotSize/2 + tranX;
-      int y = iy+j*slotSize+slotSize/2 + tranY;
+      int x = int(ix+i*slotSize+slotSize/2 + tranX);
+      int y = int(iy+j*slotSize+slotSize/2 + tranY);
       if(playCard[i][j].cardState == CARD_SHOW){
         if(millis()-startTime >= countDown &&
-           millis()-startTime <= countDown+100){
+           millis()-startTime <= countDown+500){
            playCard[i][j].cardState = CARD_HIDE;
         } 
       }
@@ -211,7 +211,7 @@ void showCard(){
 
 void showTime(){
   if(millis()-startTime < countDown){
-    int restTime = int(countDown/1000-(millis()-startTime)/1000);
+    int restTime = int(countDown/1000-(millis()-startTime)/1000+1);
     fill(0,115,109);
     textSize(25);
     text("COUNTDOWN",172,270);
@@ -220,30 +220,32 @@ void showTime(){
     textSize(15);
     text("second(s)",175,420);
   }
-  for(int i = 1;i < countDown/1000;i++){
+  for(int i = 1;i < int(countDown/1000);i++){
     if(millis()-startTime >= countDown-i*1000 &&
        millis()-startTime <  countDown-i*1000+20){
-      countHintS.trigger();
+      countHintS.rewind();
+      countHintS.play();
     }
   }
   if(millis()-startTime >= countDown &&
      millis()-startTime <  countDown+20){
-    startHintS.trigger();
+    startHintS.rewind();
+    startHintS.play();
   }
 }
 
 void showScore(){
   if(millis()-startTime >= countDown){
     fill(255,255,255);
-    textSize(35);
+    textFont(loadFont("data/SourceSansPro-Regular-35.vlw"),35);
     text("SCORE",130,245);
     if(levelUping || score <= 0){
       fill(random(255),random(255) ,random(255));
     }
-    textSize(80);
+    textFont(loadFont("data/SourceSansPro-Regular-80.vlw"),80);
     text(score,175,340);
     fill(119,91,60);
-    textSize(35);
+    textFont(loadFont("data/SourceSansPro-Regular-35.vlw"),35);
     text("Wrong "+ wrongClick,160,400);
     if(levelState == LEVEL_2 || levelState == LEVEL_3){
       if(jonesClick >= 3){
@@ -325,7 +327,8 @@ void checkMatch(){
         }
         countClick = 0;
         wrongClick = 0;
-        matchS.trigger();
+        matchS.rewind();
+        matchS.play();
       //WRONG MATCH
       }else{
         //second click special card
@@ -341,11 +344,13 @@ void checkMatch(){
            countClick = 0;
            wrongClick ++;
            if(wrongClick < 3){
-             wrongS.trigger();
+             wrongS.rewind();
+             wrongS.play();
            }else{
              score -= 5;
              wrongClick = 0; 
-             specialBadS.trigger();
+             specialBadS.rewind();
+             specialBadS.play();
            }
          }
       }
@@ -360,7 +365,8 @@ void specialCard(int clickNO){
   switch(matchCard[clickNO].cardID){ 
     case 19: //LOOK AGAIN CARD
       if(matchCard[clickNO].cardState == CARD_SHOW){
-        specialGoodS.trigger();
+        specialGoodS.rewind();
+        specialGoodS.play();
         score += 10;
         matchCard[clickNO].cardState = CARD_MATCH;
       }
@@ -392,7 +398,8 @@ void specialCard(int clickNO){
         matchCard[i] = null;
       }
       if(jonesClick < 3){
-        specialBadS.trigger();
+        specialBadS.rewind();
+        specialBadS.play();
       }
       matchA = true;
       countClick = 0;
@@ -403,7 +410,8 @@ void specialCard(int clickNO){
     case 21: //MOUSE CARD
       score = int(score/10);
       if(score > 0){
-        specialBadS.trigger();
+        specialBadS.rewind();
+        specialBadS.play();
       }
       matchCard[0].cardState = CARD_HIDE;
       matchCard[clickNO].cardState = CARD_MATCH;
@@ -426,7 +434,8 @@ void levelUp(){
           if(millis()-currentTime >= 2000 &&
              millis()-currentTime <= 2020){
              playBGM.pause();
-             levelUpS.trigger();
+             levelUpS.rewind();
+             levelUpS.play();
              for(int i = 0;i < slotW;i++){
                for(int j= 0;j < slotH;j++){
                  if(playCard[i][j].cardState == CARD_HIDE){
@@ -436,6 +445,7 @@ void levelUp(){
              }
           }
           if(millis()-currentTime >= 5000){
+             playBGM.rewind();
              playBGM.loop();
              levelState = LEVEL_2;
              setCard();
@@ -450,7 +460,8 @@ void levelUp(){
           if(millis()-currentTime >= 2000 &&
              millis()-currentTime <= 2020){
              playBGM.pause();
-             levelUpS.trigger();
+             levelUpS.rewind();
+             levelUpS.play();
              for(int i = 0;i < slotW;i++){
                for(int j= 0;j < slotH;j++){
                  if(playCard[i][j].cardState == CARD_HIDE){
@@ -460,6 +471,7 @@ void levelUp(){
              }
           }
           if(millis()-currentTime >= 5000){
+             playBGM.rewind();
              playBGM.loop();
              levelState = LEVEL_3;
              setCard();
@@ -474,7 +486,8 @@ void levelUp(){
           if(millis()-currentTime >= 2000 &&
              millis()-currentTime <= 2020){
              playBGM.pause();
-             levelUpS.trigger();
+             levelUpS.rewind();
+             levelUpS.play();
              for(int i = 0;i < slotW;i++){
                for(int j= 0;j < slotH;j++){
                  if(playCard[i][j].cardState == CARD_HIDE){
@@ -485,7 +498,8 @@ void levelUp(){
            }
           if(millis()-currentTime >= 5000){
             gameState = GAME_WIN;
-            winS.trigger();
+            winS.rewind();
+            winS.play();
           }
         }
         break; 
@@ -498,13 +512,15 @@ void checkLose(){
      millis()-currentTime >= 3000){
      gameState = GAME_LOSE;
      playBGM.pause();
-     loseS.trigger();
+     loseS.rewind();
+     loseS.play();
   }
   else if(jonesClick >= 3 &&
           millis()-currentTime >= 2000){
      gameState = GAME_LOSE;
      playBGM.pause();
-     loseS.trigger();
+     loseS.rewind();
+     loseS.play();
   }
 }
  
@@ -527,6 +543,7 @@ void reset(){
   matchA     = true;
 
   if(gameState == GAME_START){
+    startBGM.rewind();
     startBGM.loop();
   }
 }
@@ -538,12 +555,14 @@ void startClick(){
         mouseY > 357 && mouseY < 407){
         intro_1 = true;
         gameState = GAME_INTRO;
-        introClickS.trigger();
+        introClickS.rewind();
+        introClickS.play();
      }
      if(mouseX > 310 && mouseX < 438 &&
         mouseY > 420 && mouseY < 470){
         gameState = GAME_CREDIT;
-        introClickS.trigger();
+        introClickS.rewind();
+        introClickS.play();
      }
   }
 }
@@ -553,12 +572,13 @@ void introClick(){
      gameState == GAME_INTRO &&
      mouseX >= 500 && mouseX <= 600 && 
      mouseY >= 280 && mouseY <= 480){
-    introClickS.trigger();
     if(intro_1){
       intro_1 = false;
     }else{
       introAnim.mouseClick = true;
-    }   
+    }
+    introClickS.rewind();
+    introClickS.play();
   }
 }
 
@@ -570,7 +590,8 @@ void playintroClick(){
      mouseY >= 330 && mouseY <= 480){
      startTime = millis();
      playintro = false;
-     introClickS.trigger();
+     introClickS.rewind();
+     introClickS.play();
   }
 }
 
@@ -601,7 +622,8 @@ void playClick(){
           if(matchCard[0].cardID == 20){
             jonesClick++;
           }
-          playClickS.trigger();  
+          playClickS.rewind();
+          playClickS.play();  
         }
         else{
           matchCard[1] = playCard[col][row];
@@ -610,7 +632,8 @@ void playClick(){
           if(matchCard[1].cardID == 20){
             jonesClick++;
           }
-          playClickS.trigger();
+          playClickS.rewind();
+          playClickS.play();
         }    
      }
   }
@@ -625,13 +648,15 @@ void otherClick(){
           gameState  = GAME_START;
           levelState = LEVEL_1;
           reset();
-          introClickS.trigger();
+          introClickS.rewind();
+          introClickS.play();
        }
     }else if(gameState == GAME_CREDIT){
        if(mouseX >= 0   && mouseX <= 100 && 
           mouseY >= 380 && mouseY <= 450){
           gameState  = GAME_START;
-          introClickS.trigger();
+          introClickS.rewind();
+          introClickS.play();
        }
     }
   }
