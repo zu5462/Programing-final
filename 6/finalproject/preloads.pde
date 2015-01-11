@@ -9,7 +9,7 @@
                   data/donet.png,
                   data/END.png,
                   data/example 2.jpg,
-                  data/ggilr.png,
+                  data/ggirl.png,
                   data/ggirlcry.png,
                   data/ggirlopen.png,
                   data/heart.png,
