@@ -8,7 +8,7 @@ class spider{
   boolean gone = false;
   PImage spider1,spider2,spider3;
 
-void bload(){
+void spiderload(){
   spider1=loadImage("data/pic/spider.png");
   spider2=loadImage("data/pic/pumpkin.png");
   spider3=loadImage("data/pic/battle.png");
@@ -32,7 +32,7 @@ void move(){
 }
 
 spider(float x,float y,int speedY, int speedX){
-    bload();
+    spiderload();
     thing=(int)random(3);
     bX = x;
     bY = y;
