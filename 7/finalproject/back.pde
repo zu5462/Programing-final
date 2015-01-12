@@ -3,7 +3,7 @@ class back{
   float iX;
   float iY;
   int size=6396;
-  float Bmove;
+  float runmove;
   int Fnum;
   int Snum;
   int Bnum=0;
@@ -16,7 +16,7 @@ void load(){
 void move(){
   pushMatrix();
   translate(iX+636, 0);
-  iX+=move;
+  iX+=runmove;
   display();
   popMatrix(); 
 }
@@ -41,7 +41,7 @@ back(){
   iX=0;
   Fnum=1;
   Snum=2;
-  Bmove=4;
+  runmove=4;
   iY=0;
   }
 }
