@@ -7,7 +7,7 @@ kid[] klist;
 stone[] stonelist;
 spider[] slist;
 witch Witch;
-back back;
+back moveback;
 bird blist;
 magic mlist;
 building build;
@@ -43,7 +43,7 @@ void setup(){
   size(640,480);
   textFont(createFont("data/diediedie.regular.ttf", 20));
   
-  back=new back();
+  moveback=new back();
   build=new building();
   mlist=new magic();
   blist=new bird();
@@ -53,11 +53,11 @@ void setup(){
   Witch=new witch();
   
   Witch.load();
-  back.load();
+  moveback.load();
   loadBack();
   
   gameState=game_START;
-  KidNum=1;
+  KidNum=2;
   countSpiderFrame=30;
   
   minim = new Minim(this);
@@ -80,7 +80,7 @@ void draw(){
       background(255);
       replay();
       
-      back.move();
+      moveback.move();
       Witch.display();
       
       KidDead();
@@ -129,7 +129,6 @@ void draw(){
 }
 
 void replay(){
-  println(bgmPos);
   bgmPos=bgm.position();
   if(bgmPos>=177000){
     bgm.rewind();
@@ -211,7 +210,7 @@ void drawStone(){
 }
 
 void drawbird(){
-   if(score>=1800){
+   if(score>=16  00){
    blist.load();
    blist.display();
    blist.move();
@@ -219,7 +218,7 @@ void drawbird(){
 }
 
 void drawMagic(){
-  if(score>=1200){
+  if(score>=1000){
   mlist.load();
   mlist.display();
   mlist.move();
@@ -379,8 +378,8 @@ void reset(){
   magicscore=0;
   kidscore=0;
   score=0;
-  back=new back();
-  back.load();
+  moveback=new back();
+  moveback.load();
   Witch=new witch();
   Witch.load();
   mlist=new magic();
@@ -390,6 +389,6 @@ void reset(){
     slist[i]=null;
     klist[i]=null;
   }
-  KidNum=1;
+  KidNum=2;
 }
   
