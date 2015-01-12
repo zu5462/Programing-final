@@ -52,8 +52,8 @@ void setup(){
   slist= new spider[30];
   Witch=new witch();
   
-  Witch.bload();
-  moveback.bload();
+  Witch.wload();
+  moveback.backload();
   loadBack();
   
   gameState=game_START;
@@ -191,7 +191,7 @@ void drawkid(int frame){
     
     for(int i=0; i<klist.length;i++){
       if(klist[i]!=null){
-        klist[i].bload();
+        klist[i].kload();
         klist[i].display();
       }
      }
@@ -211,7 +211,7 @@ void drawStone(){
 
 void drawbird(){
    if(score>=1600){
-   blist.bload();
+   blist.birdload();
    blist.display();
    blist.move();
   }
@@ -219,7 +219,7 @@ void drawbird(){
 
 void drawMagic(){
   if(score>=1000){
-  mlist.bload();
+  mlist.mload();
   mlist.display();
   mlist.move();
   }
@@ -379,9 +379,9 @@ void reset(){
   kidscore=0;
   score=0;
   moveback=new back();
-  moveback.bload();
+  moveback.backload();
   Witch=new witch();
-  Witch.bload();
+  Witch.wload();
   mlist=new magic();
   blist=new bird();
   for(int i=0;i<stonelist.length;i++){
