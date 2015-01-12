@@ -10,7 +10,7 @@ class kid{
   boolean dothrow;
   boolean gone;
   
-void bload(){
+void kload(){
   kid=loadImage("data/pic/KID1.png");
   kidthrow=loadImage("data/pic/KID2.png");
   mom=loadImage("data/pic/People1.png");
@@ -53,7 +53,7 @@ void move(){
 void throwStone(){
       stonenum+=1; 
       stonelist[stonenum]=new stone(x,y+10);
-      stonelist[stonenum].bload();
+      stonelist[stonenum].stoneload();
       stonelist[stonenum].thing=(int)random(4);
     if(stonenum>stonelist.length-10){
       stonenum=0;
