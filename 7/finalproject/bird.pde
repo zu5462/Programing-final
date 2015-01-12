@@ -5,7 +5,7 @@ class bird{
   float speed;
   float size;
 
-void load(){
+void bload(){
   bird=loadImage("data/pic/bird.png");
  }
 
@@ -18,7 +18,7 @@ void move(){
    bX+=speed;
    if(bX>width){
    bX=0;
-   bY=random(Witch.wY-60,Witch.wY+60);
+   bY=random(Witch.wY-80,Witch.wY+80);
    }
 }
 
