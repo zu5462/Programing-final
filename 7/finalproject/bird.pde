@@ -5,7 +5,7 @@ class bird{
   float speed;
   float size;
 
-void bload(){
+void birdload(){
   bird=loadImage("data/pic/bird.png");
  }
 
