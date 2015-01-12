@@ -7,14 +7,14 @@ kid[] klist;
 stone[] stonelist;
 spider[] slist;
 witch Witch;
-background back;
+back back;
 bird blist;
 magic mlist;
 building build;
 
 PImage start;
 PImage lose;
-PImage pause;
+PImage stop;
 PImage silver;
 PImage bronze;
 PImage golden;
@@ -22,13 +22,14 @@ PImage golden;
 int countSpiderFrame;    
 int SpiderNum;           
 int KidNum;
-int life=10;
 int stonenum=0;
 int score=0;
 int kidscore=0;
 int magicscore=0;
 int showscore=0;
 int plusSpeed=1;
+int bgmPos;
+
 String killer;
 
 final int game_START=0;
@@ -41,10 +42,8 @@ int gameState;
 void setup(){
   size(640,480);
   textFont(createFont("data/diediedie.regular.ttf", 20));
-  gameState=game_START;
-  back=new background();
-  back.load();
-  KidNum=2;
+  
+  back=new back();
   build=new building();
   mlist=new magic();
   blist=new bird();
@@ -52,13 +51,20 @@ void setup(){
   stonelist=new stone[30];
   slist= new spider[30];
   Witch=new witch();
+  
   Witch.load();
+  back.load();
   loadBack();
+  
+  gameState=game_START;
+  KidNum=1;
   countSpiderFrame=30;
+  
   minim = new Minim(this);
   yell= minim.loadFile("data/yell.mp3");
   bgm = minim.loadFile("data/bgm.mp3");
   bgm.play();
+  
 }
 
 void draw(){
@@ -66,41 +72,53 @@ void draw(){
     case game_START:
       imageMode(CENTER);
       image(start,320,240);
+      replay();
       yell.rewind();
-      frameCount=0;
       break;
+      
     case game_RUN:
       background(255);
+      replay();
+      
       back.move();
       Witch.display();
-      drawkid(1800);
+      
       KidDead();
       WitchDead();
       BirdHit();
       build.crush();
       MagicHit();
+      
+      drawkid(1800);
       drawbird();
       drawMagic();
       drawStone();
       drawSpider();
       drawScore();
+      
       countSpiderFrame+=1;
+      score++;
       break;
+      
     case game_PAUSE:
-    image(pause,320,240);
+    image(stop,320,240);
+    replay();
       break;
+      
     case game_DEAD:
       bgm.pause();
       Witch.Dead();
       bgm.rewind();
       break;
+      
     case game_LOSE:
       bgm.play();
-      if(score<5000){
+      replay();
+      if(showscore<5000){
       image(lose,320,240);
-      }else if(score>=5000 && score<15000){
+      }else if(showscore>=5000 && showscore<15000){
       image(bronze,320,240);
-      }else if(score>=15000 && score<20000){
+      }else if(showscore>=15000 && showscore<20000){
       image(silver,320,240);
       }else{
       image(golden,320,240);
@@ -110,11 +128,19 @@ void draw(){
   }
 }
 
+void replay(){
+  println(bgmPos);
+  bgmPos=bgm.position();
+  if(bgmPos>=177000){
+    bgm.rewind();
+  }
+}
+
 void loadBack(){
     start=loadImage("data/start.jpg");
     lose=loadImage("data/lose.jpg");
     bronze=loadImage("data/bronze.jpg");
-    pause=loadImage("data/pause.jpg");
+    stop=loadImage("data/pause.jpg");
     golden=loadImage("data/golden.jpg");
     silver=loadImage("data/silver.jpg");
 }
@@ -122,9 +148,8 @@ void loadBack(){
 void drawScore(){
   fill(255);
   textSize(20);
-  score=frameCount*2+kidscore+magicscore;
-  text("Score:"+score, 36, 30);
-  showscore=score;
+  showscore=score*2+kidscore+magicscore;
+  text("Score:"+showscore, 36, 30);
 }
 
 void finalScore(){
@@ -151,7 +176,7 @@ void drawSpider() {
 }
 
 void drawkid(int frame){
-    if(frameCount%frame==0){
+    if(score%frame==0 && score>1000){
       KidNum++;
     }
 
@@ -186,7 +211,7 @@ void drawStone(){
 }
 
 void drawbird(){
-   if(frameCount>=1800){
+   if(score>=1800){
    blist.load();
    blist.display();
    blist.move();
@@ -194,7 +219,7 @@ void drawbird(){
 }
 
 void drawMagic(){
-  if(frameCount>=1200){
+  if(score>=1200){
   mlist.load();
   mlist.display();
   mlist.move();
@@ -203,7 +228,7 @@ void drawMagic(){
 
 void shootSpider(int frame) {
       if(key == ' ' && countSpiderFrame > frame){
-      slist[SpiderNum]= new spider(Witch.wX,Witch.wY+10, 5, 0);
+      slist[SpiderNum]= new spider(Witch.wX,Witch.wY+10, 7, 0);
       if (SpiderNum<slist.length-2) {
         SpiderNum+=1;
       } else {
@@ -316,7 +341,7 @@ void keyPressed() {
   if(key == CODED && gameState==game_RUN){
     if(keyCode == UP){
        if(Witch.wY>=Witch.Ysize/2){
-           plusSpeed+=0.6;
+           plusSpeed+=0.8;
            Witch.wSpeed*=plusSpeed;
            Witch.wY-=Witch.wSpeed;
        }
@@ -324,14 +349,14 @@ void keyPressed() {
     
     if (keyCode == DOWN) {
         if(Witch.wY<=380){
-           plusSpeed+=0.6;
+           plusSpeed+=0.8;
            Witch.wSpeed*=plusSpeed;
            Witch.wY+=Witch.wSpeed;
        }
     } 
     if(keyCode == LEFT) {
            if(Witch.wX>=Witch.Xsize/2+30){
-             plusSpeed+=0.6;
+             plusSpeed+=0.8;
              Witch.wSpeed*=plusSpeed;
              Witch.wX-=Witch.wSpeed;
            }
@@ -339,7 +364,7 @@ void keyPressed() {
     
    if(keyCode == RIGHT){
         if(Witch.wX<=width-Witch.Xsize/2){
-             plusSpeed+=0.6;
+             plusSpeed+=0.8;
              Witch.wSpeed*=plusSpeed;
              Witch.wX+=Witch.wSpeed;
         }
@@ -348,12 +373,13 @@ void keyPressed() {
     plusSpeed=1;  
   }
 }
+
 void reset(){
   showscore=0;
   magicscore=0;
   kidscore=0;
   score=0;
-  back=new background();
+  back=new back();
   back.load();
   Witch=new witch();
   Witch.load();
@@ -364,7 +390,6 @@ void reset(){
     slist[i]=null;
     klist[i]=null;
   }
-  KidNum=2;
-  frameCount=0;
+  KidNum=1;
 }
   
