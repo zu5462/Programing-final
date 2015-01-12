@@ -6,7 +6,7 @@ class magic{
   boolean gone;
   
 
-void bload(){
+void mload(){
   magic=loadImage("data/pic/magic.png");
  }
 
