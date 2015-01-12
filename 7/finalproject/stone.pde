@@ -7,7 +7,7 @@ class stone{
   boolean gone=false;
   PImage kids1,kids2,kids3;
 
-void bload(){
+void stoneload(){
   kids1=loadImage("data/pic/kids1.png");
   kids2=loadImage("data/pic/kids2.png");
   kids3=loadImage("data/pic/kids3.png");
