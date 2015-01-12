@@ -9,7 +9,7 @@ class back{
   int Bnum=0;
   float nextX;
   
-void load(){
+void bload(){
   mback=loadImage("data/background.jpg");
 }
 
