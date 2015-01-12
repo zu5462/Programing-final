@@ -210,7 +210,7 @@ void drawStone(){
 }
 
 void drawbird(){
-   if(score>=16  00){
+   if(score>=1600){
    blist.load();
    blist.display();
    blist.move();
