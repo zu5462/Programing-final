@@ -3,7 +3,7 @@ class back{
   float iX;
   float iY;
   int size=6396;
-  float move;
+  float Bmove;
   int Fnum;
   int Snum;
   int Bnum=0;
@@ -41,7 +41,7 @@ back(){
   iX=0;
   Fnum=1;
   Snum=2;
-  move=4;
+  Bmove=4;
   iY=0;
   }
 }
