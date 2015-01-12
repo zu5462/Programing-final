@@ -391,4 +391,3 @@ void reset(){
   }
   KidNum=2;
 }
-  
