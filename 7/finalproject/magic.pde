@@ -6,7 +6,7 @@ class magic{
   boolean gone;
   
 
-void load(){
+void bload(){
   magic=loadImage("data/pic/magic.png");
  }
 
@@ -17,9 +17,9 @@ void display(){
 
 void move(){
    mX+=6;
-   if(mX>(width+1000)){
+   if(mX>(width+1200)){
    mX=0;
-   mY=random(Witch.wY-20,Witch.wY+20);
+   mY=random(Witch.wY-40,Witch.wY+40);
    }
    
 }
