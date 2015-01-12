@@ -1,5 +1,5 @@
 class back{
-  PImage back;
+  PImage mback;
   float iX;
   float iY;
   int size=6396;
@@ -10,7 +10,7 @@ class back{
   float nextX;
   
 void load(){
-  back=loadImage("data/background.jpg");
+  mback=loadImage("data/background.jpg");
 }
 
 void move(){
@@ -32,9 +32,9 @@ void display(){
   Bnum++;
   }
   noStroke();
-  image(back,-size*Fnum,0);
-  image(back,-size*Snum,0);
-  nextX=iX+636;
+  image(mback,-size*Fnum,0);
+  image(mback,-size*Snum,0);
+  nextX=iX+636-Bnum*size;
 }
 
 back(){
