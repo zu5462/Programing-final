@@ -1,7 +1,5 @@
 class kid{
   PImage kid,kidthrow,mom,momthrow;
-  int width;
-  int length;
   int speed;
   float x;
   float y;
@@ -33,12 +31,12 @@ void display(){
   image(mom,x,y);
   }
   move();
-  if(frameCount%stonerate==0){
-  throwcount=frameCount;
+  if(score%stonerate==0){
+  throwcount=score;
   dothrow=true;
   throwStone();
   }
-  if(frameCount-throwcount>=20){
+  if(score-throwcount>=20){
   dothrow=false;
   }
 }
@@ -66,8 +64,6 @@ void throwStone(){
 kid(int x,int y,int speed,int stonerate){
   this.x=x;
   this.y=y;
-  width=20;
-  length=30;
   this.stonerate=stonerate;
   this.speed=speed;
   }
