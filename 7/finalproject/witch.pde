@@ -9,7 +9,7 @@ class witch{
   float RwY=height/2.0;
   float rot=0.0; 
   
-void bload(){
+void wload(){
    witch=loadImage("data/pic/Witch.png");
 }
 
